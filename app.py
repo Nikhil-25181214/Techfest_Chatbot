@@ -1,52 +1,58 @@
-
 import os
 from dotenv import load_dotenv
-load_dotenv()
-api_key = os.getenv("GROQ_API_KEY")
-#proxy (for RGUKT network)
-os.environ["HTTP_PROXY"] = "http://B221506:EAWWA6@studentnet.rgukt.ac.in:3128"
-os.environ["HTTPS_PROXY"] = "http://B221506:EAWWA6@studentnet.rgukt.ac.in:3128"
-
 from flask import Flask, render_template, request, jsonify
 from groq import Groq
 
+# Load environment variables
+load_dotenv()
+
+# Get API key from environment
+api_key = os.getenv("GROQ_API_KEY")
+
+# Initialize Groq client
+client = Groq(api_key=api_key)
+
+# Create Flask app
 app = Flask(__name__)
 
-client = Groq(api_key)
-
-
+# Home route
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
+# Chatbot route
 @app.route("/ask", methods=["POST"])
 def ask():
+    try:
+        data = request.get_json()
 
-    question = request.json["question"]
-    language = request.json["language"]
+        question = data.get("question")
+        language = data.get("language")
 
-    response = client.chat.completions.create(
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Answer the question clearly and in the same language as the user."
+                },
+                {
+                    "role": "user",
+                    "content": question
+                }
+            ]
+        )
 
-        model="llama-3.1-8b-instant",
+        answer = response.choices[0].message.content
 
-        messages=[
-            {
-                "role": "system",
-                "content": "Answer the question clearly and in the same language as the user."
-            },
-            {
-                "role": "user",
-                "content": question
-            }
-        ]
+        return jsonify({"answer": answer})
 
-    )
-
-    answer = response.choices[0].message.content
-
-    return jsonify({"answer": answer})
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 
+# Run server
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
