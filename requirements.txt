@@ -7,3 +7,4 @@ pillow
 deep-translator
 langdetect
 python-dotenv
+gunicorn
