@@ -1,0 +1,9 @@
+flask
+groq
+sentence-transformers
+chromadb
+pytesseract
+pillow
+deep-translator
+langdetect
+python-dotenv
