@@ -3,7 +3,9 @@
 
 <head>
 
-<title>AI Assistant</title>
+<title>Chitti AI Assistant</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="/static/style2.css">
 
@@ -11,53 +13,53 @@
 
 <body>
 
-<h2 class="title">AI Assistant</h2>
+<h2 class="title">Chitti AI Assistant</h2>
 
 <div class="container">
 
-    <!-- LEFT SIDE -->
-    <div class="left-panel">
-
+    <!-- AVATAR SECTION -->
+    <div class="avatar-section">
         <div id="avatar"></div>
-
-        <div class="controls">
-
-            <select id="language">
-                <option value="en-US">English</option>
-                <option value="hi-IN">Hindi</option>
-                <option value="te-IN">Telugu</option>
-                <option value="ta-IN">Tamil</option>
-                <option value="kn-IN">Kannada</option>
-            </select>
-
-            <input id="question" placeholder="Ask something">
-
-            <div class="button-group">
-
-                <button onclick="startVoice()">🎤</button>
-
-                <button onclick="ask()">➤</button>
-
-                <button onclick="speakAnswer()">🔊</button>
-
-                <button onclick="stopSpeech()">⏹</button>
-
-            </div>
-
-        </div>
-
     </div>
 
-
-    <!-- RIGHT SIDE -->
-    <div class="right-panel">
-
+    <!-- CHAT SECTION -->
+    <div class="chat-section">
         <div id="answer"></div>
+    </div>
+
+</div>
+
+
+<!-- FIXED INPUT BAR (BOTTOM) -->
+
+<div class="controls">
+
+    <select id="language">
+        <option value="en-US">English</option>
+        <option value="hi-IN">Hindi</option>
+        <option value="te-IN">Telugu</option>
+        <option value="ta-IN">Tamil</option>
+        <option value="kn-IN">Kannada</option>
+    </select>
+
+    <input id="question" placeholder="Ask something...">
+
+    <div class="button-group">
+
+        <button onclick="startVoice()">🎤</button>
+
+        <button onclick="ask()">➤</button>
+
+        <button onclick="speakAnswer()">🔊</button>
+
+        <button onclick="stopSpeech()">⏹</button>
 
     </div>
 
 </div>
 
+
+<!-- SCRIPTS -->
 
 <script src="/static/three.min.js"></script>
 <script src="/static/GLTFLoader.js"></script>
@@ -65,5 +67,4 @@
 <script src="/static/script.js"></script>
 
 </body>
-
 </html>
